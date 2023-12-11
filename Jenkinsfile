@@ -28,5 +28,23 @@ pipeline {
                 """
             }
         }
+
+        stage('init'){
+            steps {                
+                sh """
+                    cd create-storage                    
+                    terraform init
+                """
+            }
+        }
+
+        stage('plan'){
+            steps {                
+                sh """
+                    cd create-storage                    
+                    terraform plan
+                """
+            }
+        }
     }
 }
