@@ -1,7 +1,10 @@
-pipeline{
+@Library('devops-projects-shared-lib') _
+
+pipeline {
     agent {
         label: 'docker'
     }
+
     stages {
         stage('git checkout'){
             steps {                
