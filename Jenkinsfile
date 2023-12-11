@@ -5,6 +5,10 @@ pipeline {
         label 'docker'
     }
 
+    tools {
+        terraform 'Terraform v1.6.5'
+    }
+
     stages {
         stage('git checkout'){
             steps {                
@@ -12,6 +16,15 @@ pipeline {
                     branch: 'main',
                     url: 'https://github.com/csnkarthik/terraform-tutorials.git'
                 )
+            }
+        }
+
+        stage('init'){
+            steps {                
+                sh """
+                    cd create-storage
+                    pwd
+                """
             }
         }
     }
