@@ -9,6 +9,10 @@ pipeline {
         terraform 'Terraform v1.6.5'
     }
 
+    parameters {
+        choice choices: ['create', 'destroy'], name: 'action'
+    }
+
     stages {
         stage('git checkout'){
             steps {                
@@ -19,7 +23,7 @@ pipeline {
             }
         }
 
-        stage('init'){
+        stage('init'){            
             steps {                
                 sh """
                     cd create-storage
@@ -29,16 +33,8 @@ pipeline {
             }
         }
 
-        stage('init'){
-            steps {                
-                sh """
-                    cd create-storage                    
-                    terraform init
-                """
-            }
-        }
-
         stage('plan'){
+            when { expression { params.action == 'create' } } 
             steps {                
                 sh """
                     cd create-storage                    
