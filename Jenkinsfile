@@ -24,6 +24,7 @@ pipeline {
                 sh """
                     cd create-storage
                     pwd
+                    terraform init
                 """
             }
         }
