@@ -8,7 +8,6 @@ pipeline {
         terraform 'Terraform v1.6.5'
     }
 
-<<<<<<< HEAD
     parameters {
         choice choices: ['create', 'destroy'], name: 'action'
     }
@@ -16,9 +15,6 @@ pipeline {
     environment {
         az_svc = credentials('azure_service_principle')
     }
-
-=======
->>>>>>> parent of be8ac1c (plan step added 2)
     stages {
         stage('git checkout'){
             steps {                
