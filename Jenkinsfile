@@ -4,10 +4,6 @@ pipeline {
     agent {
         label 'docker'
     }
-    tools {
-        terraform 'Terraform v1.6.5'
-    }
-
     parameters {
         choice choices: ['create', 'destroy'], name: 'action'
     }
