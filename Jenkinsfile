@@ -31,13 +31,12 @@ pipeline {
 
         stage('plan'){
             when { expression { params.action == 'create' } } 
-            steps { 
+            steps {
+
                 sh """
-                    echo ${az_svc_CLIENT_ID}
-                    echo ${az_svc_CLIENT_SECRET}
-                    echo ${az_svc_TENANT_ID}
-                    echo ${az_svc_SUBSCRIPTION_ID}
-                """
+                    az login --service-principal -u ${az_svc_CLIENT_ID} -p ${az_svc_CLIENT_SECRET} -t ${az_svc_TENANT_ID}
+                    terraform plan 
+                """               
             }
         }
     }
