@@ -43,7 +43,7 @@ pipeline {
         stage('plan'){
             when { expression { params.action == 'create' } } 
             steps { 
-                                sh """
+                sh """
                     echo ${az_svc_CLIENT_ID}
                     echo ${az_svc_CLIENT_SECRET}
                     echo ${az_svc_TENANT_ID}
