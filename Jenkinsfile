@@ -34,7 +34,13 @@ pipeline {
             steps {
 
                 sh """
-                    az login --service-principal -u ${az_svc_CLIENT_ID} -p ${az_svc_CLIENT_SECRET} -t ${az_svc_TENANT_ID}
+
+                    export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
+                    export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
+                    export ARM_TENANT_ID=${az_svc_TENANT_ID}
+                    export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
+
+                    az login
                     cd create-storage
                     terraform plan 
                 """               
