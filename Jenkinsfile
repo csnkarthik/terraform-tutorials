@@ -20,17 +20,6 @@ pipeline {
                 )
             }
         }
-
-        stage('init'){
-            steps {                
-                sh """
-                    cd create-storage
-                    pwd
-                    terraform init
-                """
-            }
-        }
-
         stage('init'){
             steps {                
                 sh """
