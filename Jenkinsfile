@@ -35,6 +35,7 @@ pipeline {
 
                 sh """
                     az login --service-principal -u ${az_svc_CLIENT_ID} -p ${az_svc_CLIENT_SECRET} -t ${az_svc_TENANT_ID}
+                    cd create-storage
                     terraform plan 
                 """               
             }
