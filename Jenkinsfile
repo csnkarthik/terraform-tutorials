@@ -68,8 +68,7 @@ pipeline {
                     def userInput = input message: 'Are you sure you wanna proceed to destory?', ok: 'yes', submitter: 'karthikn', submitterParameter: 'approvedBy'
 
                     sh "echo ${userInput}"
-                    sh "echo ${approvedBy}"
-
+                    
                     
                     // if(userInput){
                     //     sh """
