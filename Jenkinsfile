@@ -65,7 +65,7 @@ pipeline {
             steps {         
                 script {
                     
-                    def userInput = input message: 'Proceed with deployment?', parameters: [boolean(name: 'destory')]
+                    def userInput = input message: 'are you sure you want to proceed to destory?', ok: 'Yes', submitterParameter: 'proceed'
 
                     sh 'echo $userInput'
                     // if(proceed){
