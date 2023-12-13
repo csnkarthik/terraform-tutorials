@@ -62,14 +62,17 @@ pipeline {
         }
         stage('destroy'){
             when { expression { params.action == 'destroy' } } 
+
+            def USER_INPUT = input {
+                message "Should we continue?"
+                ok "Yes"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                }
+            }
+            
             steps {
-
-                script{
-                    def USER_INPUT = input(
-                        message: 'Ready to go? Proceed or Abort',
-                        parameters: [class: 'BooleanParameterDefinition', defaultValue: true]
-                    )
-
+                script{                    
                     if("${USER_INPUT}" == "yes"){
                         sh """
                             export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
@@ -79,8 +82,7 @@ pipeline {
                             cd create-storage
                             terraform destroy -auto-approve
                         """  
-                    }
-                    else{
+                    }else{
                         sh 'echo destory cancelled'
                     } 
                 }                           
