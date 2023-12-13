@@ -65,9 +65,11 @@ pipeline {
             steps {         
                 script {
                     
-                    def userInput = input message: 'are you sure you want to proceed to destory?', ok: 'Yes', submitterParameter: 'proceed'
+                    input message: 'Are you sure you wanna proceed to destory?', ok: 'yes', parameters: [booleanParam(description: 'proceed', name: 'proceed')]
 
                     sh "echo ${userInput}"
+                    sh "echo ${proceed}"
+                    
                     // if(proceed){
                     //     sh """
                     //         export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
