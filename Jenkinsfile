@@ -65,13 +65,9 @@ pipeline {
             steps {         
                 script {
                     
-                    def proceed = input {
-                        message 'ready to proceed?'
-                        ok 'yes'
-                        submitterParameter 'proceed'
-                    }
+                    def userInput = input message: 'Proceed with deployment?', parameters: [boolean(name: 'destory')]
 
-                    sh 'echo $proceed'
+                    sh 'echo $userInput'
                     // if(proceed){
                     //     sh """
                     //         export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
