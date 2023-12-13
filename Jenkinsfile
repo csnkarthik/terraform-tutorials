@@ -65,7 +65,7 @@ pipeline {
             steps {         
                 script {
                     
-                    input message: 'Are you sure you wanna proceed to destory?', parameters: [booleanParam(name: 'proceed')]
+                    def userInput = input message: 'Are you sure you wanna proceed to destory?', parameters: [booleanParam(name: 'proceed')]
 
                     sh "echo ${userInput}"
                     sh "echo ${proceed}"
