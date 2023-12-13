@@ -64,20 +64,26 @@ pipeline {
             when { expression { params.action == 'destroy' } } 
             steps {         
                 script {
-                    def proceed = input message: 'Proceed with destroy?', parameters: [boolean(name: 'destory')]
-
-                    if(proceed){
-                        sh """
-                            export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
-                            export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
-                            export ARM_TENANT_ID=${az_svc_TENANT_ID}
-                            export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
-                            cd create-storage
-                            terraform destroy -auto-approve
-                        """
-                    }else{
-                        sh 'echo destory declined'
+                    
+                    def proceed = input {
+                        message 'ready to proceed?'
+                        ok 'yes'
+                        submitterParameter 'proceed'
                     }
+
+                    sh 'echo $proceed'
+                    // if(proceed){
+                    //     sh """
+                    //         export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
+                    //         export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
+                    //         export ARM_TENANT_ID=${az_svc_TENANT_ID}
+                    //         export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
+                    //         cd create-storage
+                    //         terraform destroy -auto-approve
+                    //     """
+                    // }else{
+                    //     sh 'echo destory declined'
+                    // }
                 }                       
             }
         }
