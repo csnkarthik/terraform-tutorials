@@ -66,10 +66,9 @@ pipeline {
 
                 script{
                     def USER_INPUT = input(
-                                        message: 'are you sure, you want to destroy? ',
-                                        ok: 'yes to continue',                 
-                                        parameters: [class: 'BooleanParameterDefinition', defaultValue: true]
-                                    )
+                        message: 'Ready to go? Proceed or Abort',
+                        parameters: [class: 'BooleanParameterDefinition', defaultValue: true]
+                    )
 
                     if("${USER_INPUT}" == "yes"){
                         sh """
