@@ -68,20 +68,19 @@ pipeline {
                     def userInput = input message: 'Are you sure you wanna proceed to destory?', parameters: [booleanParam(name: 'proceed')]
 
                     sh "echo ${userInput}"
-                    sh "echo ${proceed}"
                     
-                    // if(proceed){
-                    //     sh """
-                    //         export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
-                    //         export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
-                    //         export ARM_TENANT_ID=${az_svc_TENANT_ID}
-                    //         export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
-                    //         cd create-storage
-                    //         terraform destroy -auto-approve
-                    //     """
-                    // }else{
-                    //     sh 'echo destory declined'
-                    // }
+                    if(userInput){
+                        sh """
+                            export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
+                            export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
+                            export ARM_TENANT_ID=${az_svc_TENANT_ID}
+                            export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
+                            cd create-storage
+                            terraform destroy -auto-approve
+                        """
+                    }else{
+                        sh 'echo destory declined'
+                    }
                 }                       
             }
         }
