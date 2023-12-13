@@ -65,9 +65,10 @@ pipeline {
             steps {         
                 script {
                     
-                    def userInput = input message: 'Are you sure you wanna proceed to destory?', ok: 'yes', submitter: 'karthikn', submitterParameter: 'approvedBy'
+                    def userInput = input message: 'Are you sure you wanna proceed to destory?', ok: 'Continue', parameters: [choice(choices: ['yes', 'no'], name: 'choice')]
 
                     sh "echo ${userInput}"
+                    sh "echo ${choice}"
                     
                     
                     // if(userInput){
