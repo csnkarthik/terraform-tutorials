@@ -28,7 +28,6 @@ pipeline {
                 """
             }
         }
-
         stage('plan'){
             when { expression { params.action == 'create' } } 
             steps {
@@ -63,23 +62,23 @@ pipeline {
         stage('destroy'){
             
             when { expression { params.action == 'destroy' } } 
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                submitter "alice,bob"
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
-            }
-            steps {                    
-                sh """
-                    export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
-                    export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
-                    export ARM_TENANT_ID=${az_svc_TENANT_ID}
-                    export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
-                    cd create-storage
-                    terraform destroy -auto-approve
-                """                        
+            steps {         
+                script {
+                    def proceed = input message: 'Proceed with destroy?', parameters: [boolean(name: 'destory')]
+
+                    if(proceed){
+                        sh """
+                            export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
+                            export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
+                            export ARM_TENANT_ID=${az_svc_TENANT_ID}
+                            export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
+                            cd create-storage
+                            terraform destroy -auto-approve
+                        """
+                    }else{
+                        sh 'echo destory declined'
+                    }
+                }                       
             }
         }
     }
