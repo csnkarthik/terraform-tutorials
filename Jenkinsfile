@@ -64,25 +64,27 @@ pipeline {
             when { expression { params.action == 'destroy' } } 
             steps {
 
-                def USER_INPUT = input(
-                    message: 'are you sure, you want to destroy? ',
-                    ok: 'yes to continue',                 
-                    parameters: [class: 'BooleanParameterDefinition', defaultValue: true]
-                )
+                script{
+                    def USER_INPUT = input(
+                                        message: 'are you sure, you want to destroy? ',
+                                        ok: 'yes to continue',                 
+                                        parameters: [class: 'BooleanParameterDefinition', defaultValue: true]
+                                    )
 
-                if("${USER_INPUT}" == "yes"){
-                    sh """
-                        export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
-                        export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
-                        export ARM_TENANT_ID=${az_svc_TENANT_ID}
-                        export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
-                        cd create-storage
-                        terraform destroy -auto-approve
-                    """  
-                }
-                else{
-                    sh 'echo destory cancelled'
-                }            
+                    if("${USER_INPUT}" == "yes"){
+                        sh """
+                            export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
+                            export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
+                            export ARM_TENANT_ID=${az_svc_TENANT_ID}
+                            export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
+                            cd create-storage
+                            terraform destroy -auto-approve
+                        """  
+                    }
+                    else{
+                        sh 'echo destory cancelled'
+                    } 
+                }                           
             }
         }
     }
