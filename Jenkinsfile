@@ -66,7 +66,7 @@ pipeline {
 
                 def USER_INPUT = input(
                     message: 'are you sure, you want to destroy? ',
-                    ok: 'yes to continue'                    
+                    ok: 'yes to continue',                 
                     parameters: [class: 'BooleanParameterDefinition', defaultValue: true]
                 )
 
