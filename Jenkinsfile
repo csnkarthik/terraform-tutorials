@@ -65,12 +65,10 @@ pipeline {
             steps {         
                 script {
                     
-                    def userInput = input message: 'Are you sure you wanna proceed to destory?', ok: 'Continue', parameters: [choice(choices: ['yes', 'no'], name: 'choice')]
-
+                    //def userInput = input message: 'Are you sure you wanna proceed to destory?', ok: 'Continue', parameters: [choice(choices: ['yes', 'no'], name: 'choice')]
+                    def userInput =  input message: 'Are you sure you wanna proceed to destory?', ok: 'Continue'
                     sh "echo ${userInput}"
-                    sh "echo ${choice}"
-                    
-                    
+                                        
                     // if(userInput){
                     //     sh """
                     //         export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
