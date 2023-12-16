@@ -1,7 +1,8 @@
 variable "resource_group_name" {
-  default = "myTFResourceGroup"
+  #default = "myTFResourceGroup"
 }
 
 variable "resource_location" {
   default = "westus2"
+  type = string  
 }
