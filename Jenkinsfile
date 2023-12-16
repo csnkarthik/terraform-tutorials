@@ -66,7 +66,7 @@ pipeline {
 
                 sh """
                     cd create-storage
-                    cat outputs.tf
+                    terraform output resource_group_id
                 """               
             }
         }
