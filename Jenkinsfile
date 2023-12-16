@@ -39,7 +39,7 @@ pipeline {
                     export ARM_TENANT_ID=${az_svc_TENANT_ID}
                     export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
                     cd create-storage
-                    terraform plan -var-file=dev.tfvars
+                    terraform plan -var-file=development.tfvars
                 """               
             }
         }
@@ -55,7 +55,7 @@ pipeline {
                     export ARM_TENANT_ID=${az_svc_TENANT_ID}
                     export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
                     cd create-storage
-                    terraform apply -var-file=dev.tfvars -auto-approve
+                    terraform apply -var-file=development.tfvars -auto-approve
                 """               
             }
         }
