@@ -82,7 +82,7 @@ pipeline {
                     export ARM_TENANT_ID=${az_svc_TENANT_ID}
                     export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
                     cd create-storage
-                    terraform destroy -auto-approve
+                    terraform destroy -var-file=development.tfvars -auto-approve
                 """                    
             }
         }
