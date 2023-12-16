@@ -59,6 +59,17 @@ pipeline {
                 """               
             }
         }
+
+         stage('print output'){
+            when { expression { params.action == 'create' } } 
+            steps {
+
+                sh """
+                    cd create-storage
+                    cat outputs.tf
+                """               
+            }
+        }
         stage('destroy'){
             
             when { expression { params.action == 'destroy' } } 
