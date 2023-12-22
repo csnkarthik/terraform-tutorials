@@ -7,9 +7,10 @@ pipeline {
     parameters {
         choice choices: ['create', 'destroy'], name: 'action'
     }
-    // environment {
-    //     az_svc = credentials('azure_service_principle')
-    // }
+     environment {
+        AWS_ACCESS_KEY_ID = credentials('aws_credentials')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_credentials')
+    }
     stages {
         stage('git checkout'){
             steps {                
@@ -19,23 +20,30 @@ pipeline {
                 )
             }
         }
-        stage('init'){
+        stage('aws key'){
             steps {                
-                sh """
-                    cd aws-proj               
-                    terraform init
-                """
+                sh "${AWS_ACCESS_KEY_ID}"
+                sh "${AWS_SECRET_ACCESS_KEY}"
+
             }
         }
-        stage('plan'){
-            when { expression { params.action == 'create' } } 
-            steps {
-                sh """
-                    cd aws-proj
-                    terraform plan
-                """               
-            }
-        }
+        // stage('init'){
+        //     steps {                
+        //         sh """
+        //             cd aws-proj               
+        //             terraform init
+        //         """
+        //     }
+        // }
+        // stage('plan'){
+        //     when { expression { params.action == 'create' } } 
+        //     steps {
+        //         sh """
+        //             cd aws-proj
+        //             terraform plan
+        //         """               
+        //     }
+        // }
 
         // stage('apply'){
         //     when { expression { params.action == 'create' } } 
@@ -72,7 +80,7 @@ pipeline {
                 sh """
                     
                     cd aws-proj
-                    terraform destroy -var-file=development.tfvars -auto-approve
+                    terraform destroy -auto-approve
                 """                    
             }
         }
