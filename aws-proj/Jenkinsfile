@@ -22,8 +22,11 @@ pipeline {
         }
         stage('aws key'){
             steps {                
-                sh "${AWS_ACCESS_KEY_ID}"
-                sh "${AWS_SECRET_ACCESS_KEY}"
+                sh """
+                    echo ${AWS_ACCESS_KEY_ID}
+                    echo ${AWS_SECRET_ACCESS_KEY}
+
+                """
 
             }
         }
