@@ -52,32 +52,30 @@ pipeline {
             }
         }
 
-        // stage('apply'){
-        //     when { expression { params.action == 'create' } } 
-        //     steps {
+        stage('apply'){
+            when { expression { params.action == 'create' } } 
+            steps {
 
-        //         sh """
+                sh """
+                    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                    export AWS_REGION=${AWS_REGION}
+                    cd aws-proj
+                    terraform apply -auto-approve
+                """               
+            }
+        }
 
-        //             export ARM_CLIENT_ID=${az_svc_CLIENT_ID}
-        //             export ARM_CLIENT_SECRET=${az_svc_CLIENT_SECRET}
-        //             export ARM_TENANT_ID=${az_svc_TENANT_ID}
-        //             export ARM_SUBSCRIPTION_ID=${az_svc_SUBSCRIPTION_ID}
-        //             cd create-storage
-        //             terraform apply -var-file=development.tfvars -auto-approve
-        //         """               
-        //     }
-        // }
+         stage('print output'){
+            when { expression { params.action == 'create' } } 
+            steps {
 
-        //  stage('print output'){
-        //     when { expression { params.action == 'create' } } 
-        //     steps {
-
-        //         sh """
-        //             cd create-storage
-        //             terraform output resource_group_id
-        //         """               
-        //     }
-        // }
+                sh """
+                    cd aws-proj
+                    terraform output loadbalancerdsn
+                """               
+            }
+        }
 
         stage('destroy'){
             
