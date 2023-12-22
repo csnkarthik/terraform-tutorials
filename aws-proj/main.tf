@@ -123,7 +123,7 @@ resource "aws_instance" "webserver2" {
   ami = "ami-0c7217cdde317cfec"
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.sg1.id]
-  subnet_id = aws_subnet.sub2
+  subnet_id = aws_subnet.sub2.id
   user_data = file("userData1.sh")
 }
 
@@ -132,7 +132,7 @@ resource "aws_lb" "alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg1.id]
-  subnets            = [aws_subnet.sub1, aws_subnet.sub2]
+  subnets            = [aws_subnet.sub1.id, aws_subnet.sub2.id]
 
   enable_deletion_protection = true
 
@@ -156,13 +156,13 @@ resource "aws_lb_target_group" "tg" {
 
 resource "aws_lb_target_group_attachment" "tga1" {
   target_group_arn = aws_lb_target_group.tg.arn
-  target_id        = aws_instance.webserver1
+  target_id        = aws_instance.webserver1.id
   port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "tga2" {
   target_group_arn = aws_lb_target_group.tg.arn
-  target_id        = aws_instance.webserver2
+  target_id        = aws_instance.webserver2.id
   port             = 80
 }
 
