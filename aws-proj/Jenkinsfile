@@ -8,8 +8,8 @@ pipeline {
         choice choices: ['create', 'destroy'], name: 'action'
     }
      environment {
-        AWS_ACCESS_KEY_ID = credentials('aws_credentials')
-        AWS_SECRET_ACCESS_KEY = credentials('aws_credentials')
+        AWS_ACCESS_KEY_ID = credentials('aws_access')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_access')
     }
     stages {
         stage('git checkout'){
